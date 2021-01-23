@@ -50,7 +50,7 @@ var (
 	// Parameterise the version to use for comparison
 	dcrlndversion = &verrpc.Version{
 		AppMajor:  0,
-		AppMinor:  30,
+		AppMinor:  3,
 		AppPatch:  0,
 		BuildTags: []string{},
 	}
