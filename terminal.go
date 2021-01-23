@@ -26,6 +26,7 @@ import (
 	"github.com/lightningnetwork/lnd"
 	"github.com/lightningnetwork/lnd/build"
 	"github.com/lightningnetwork/lnd/lnrpc"
+	"github.com/lightningnetwork/lnd/lnrpc/verrpc"
 	"github.com/lightningnetwork/lnd/lntest/wait"
 	"github.com/lightningnetwork/lnd/signal"
 	"github.com/rakyll/statik/fs"
@@ -46,6 +47,13 @@ const (
 )
 
 var (
+	// Parameterise the version to use for comparison
+	dcrlndversion = &verrpc.Version{
+		AppMajor:  0,
+		AppMinor:  30,
+		AppPatch:  0,
+		BuildTags: "",
+	}
 	// maxMsgRecvSize is the largest message our REST proxy will receive. We
 	// set this to 200MiB atm.
 	maxMsgRecvSize = grpc.MaxCallRecvMsgSize(1 * 1024 * 1024 * 200)
@@ -305,6 +313,7 @@ func (g *LightningTerminal) startSubservers() error {
 			TLSPath:               tlsPath,
 			BlockUntilChainSynced: true,
 			ChainSyncCtx:          ctxc,
+			CheckVersion:					 dcrlndversion,
 		},
 	)
 	if err != nil {
